@@ -1,5 +1,6 @@
 package com.course.spring.entities;
 
+import com.course.spring.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -21,10 +22,23 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
-    public Order(Long id, Instant moment, User client) {
+    private Integer orderStatus;
+
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus);
         this.client = client;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public Order setOrderStatus(OrderStatus orderStatus) {
+        if( orderStatus != null){
+            this.orderStatus = orderStatus.getCode();
+        }return this;
     }
 
     public Order() {
