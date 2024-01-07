@@ -1,8 +1,10 @@
 package com.course.spring.config;
 
+import com.course.spring.entities.Category;
 import com.course.spring.entities.Order;
 import com.course.spring.entities.User;
 import com.course.spring.entities.enums.OrderStatus;
+import com.course.spring.repositories.CategoryRepository;
 import com.course.spring.repositories.OrderRepository;
 import com.course.spring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,21 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
     private OrderRepository orderRepository;
 
     @Override
     public void run(String... args) throws Exception {
+
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+
+
         User u1 = new User(null, "Salles Brown", "salles@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Vini Green", "alex@gmail.com", "977777777", "123456");
 
@@ -34,6 +47,7 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+
         //Perguntar por que eu preciso salvar novamente
     }
 }
