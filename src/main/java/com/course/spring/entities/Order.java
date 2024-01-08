@@ -29,6 +29,18 @@ public class Order implements Serializable {
 
     private Integer orderStatus;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    private Payment payment;
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public Order setPayment(Payment payment) {
+        this.payment = payment;
+        return this;
+    }
+
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
